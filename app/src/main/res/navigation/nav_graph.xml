@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/signUpFragment">
+
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.pakelcomedy.signup.auth.SignUpFragment"
+        tools:layout="@layout/fragment_sign_up">
+        <action
+            android:id="@+id/action_signUpFragment_to_signUpVerifikasiEmailDialog"
+            app:destination="@id/signUpVerifikasiEmailDialog" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/signUpVerifikasiEmailDialog"
+        android:name="com.pakelcomedy.signup.ui.auth.popups.SignUpVerifikasiEmailDialog"
+        tools:layout="@layout/dialog_sign_up_verifikasi_email">
+        <action
+            android:id="@+id/action_signUpVerifikasiEmailDialog_to_signUpInputFragment"
+            app:destination="@id/signUpInputFragment" />
+    </dialog>
+
+    <fragment
+        android:id="@+id/signUpInputFragment"
+        android:name="com.pakelcomedy.signup.auth.SignUpInputFragment"
+        tools:layout="@layout/fragment_sign_up_input" />
+</navigation>
