@@ -5,9 +5,11 @@ import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.auth.FirebaseAuth
 import com.pakelcomedy.signup.R
 import com.pakelcomedy.signup.databinding.DialogSignUpVerifikasiEmailBinding
 
@@ -34,7 +36,6 @@ class SignUpVerifikasiEmailDialog : BottomSheetDialogFragment() {
         startCountDownTimer()
 
         binding.tvResend.setOnClickListener {
-            // Handle resend email logic
             resendVerificationEmail()
         }
     }
@@ -44,6 +45,7 @@ class SignUpVerifikasiEmailDialog : BottomSheetDialogFragment() {
             override fun onTick(millisUntilFinished: Long) {
                 val secondsRemaining = (millisUntilFinished / 1000).toInt()
                 binding.tvTimer.text = String.format("%02d:%02d", secondsRemaining / 60, secondsRemaining % 60)
+                checkEmailVerification()
             }
 
             override fun onFinish() {
@@ -53,17 +55,32 @@ class SignUpVerifikasiEmailDialog : BottomSheetDialogFragment() {
         }.start()
     }
 
+    private fun checkEmailVerification() {
+        val user = FirebaseAuth.getInstance().currentUser
+        user?.reload()?.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                if (user.isEmailVerified) {
+                    onEmailVerified() // Navigate to SignUpInputFragment
+                }
+            }
+        }
+    }
+
     private fun resendVerificationEmail() {
         // Logic to resend the verification email
-        // For example, make a network request to send the email again
+        val user = FirebaseAuth.getInstance().currentUser
+        user?.sendEmailVerification()?.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Toast.makeText(requireContext(), "Verification email sent to ${user.email}", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Failed to resend verification email.", Toast.LENGTH_SHORT).show()
+            }
+        }
 
         // Reset timer after resending
         countDownTimer.cancel()
         startCountDownTimer()
         binding.tvResend.visibility = View.GONE // Hide resend button until the timer finishes again
-
-        // Optional: After resending, you could also navigate to SignUpInputFragment if needed
-        // findNavController().navigate(R.id.action_signUpVerifikasiEmailDialog_to_signUpInputFragment)
     }
 
     // Call this function to navigate after verifying the email

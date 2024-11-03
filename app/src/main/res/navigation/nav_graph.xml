@@ -26,5 +26,16 @@
     <fragment
         android:id="@+id/signUpInputFragment"
         android:name="com.pakelcomedy.signup.auth.SignUpInputFragment"
-        tools:layout="@layout/fragment_sign_up_input" />
+        tools:layout="@layout/fragment_sign_up_input" >
+        <action
+            android:id="@+id/action_signUpInputFragment_to_home"
+            app:destination="@id/home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.pakelcomedy.signup.auth.SignUpFragment"
+        tools:layout="@layout/home">
+
+    </fragment>
 </navigation>
