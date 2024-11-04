@@ -19,6 +19,7 @@ android {
 
     buildFeatures {
         viewBinding = true // Ensure proper assignment
+        dataBinding = true
     }
 
     buildTypes {
@@ -67,4 +68,7 @@ dependencies {
     // Coroutines dependencies
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0") // Coroutines Core
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0") // Coroutines Android
+
+    implementation ("com.github.bumptech.glide:glide:4.15.1")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
 }

@@ -5,6 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/signUpFragment">
 
+    <action
+        android:id="@+id/action_signUpFragment_to_signUpInputFragment"
+        app:destination="@id/signUpInputFragment" />
+
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.pakelcomedy.signup.auth.SignUpFragment"
@@ -26,7 +30,7 @@
     <fragment
         android:id="@+id/signUpInputFragment"
         android:name="com.pakelcomedy.signup.auth.SignUpInputFragment"
-        tools:layout="@layout/fragment_sign_up_input" >
+        tools:layout="@layout/fragment_sign_up_input">
         <action
             android:id="@+id/action_signUpInputFragment_to_home"
             app:destination="@id/home" />
@@ -34,8 +38,6 @@
 
     <fragment
         android:id="@+id/home"
-        android:name="com.pakelcomedy.signup.auth.SignUpFragment"
-        tools:layout="@layout/home">
-
-    </fragment>
+        android:name="com.pakelcomedy.signup.ui.auth.HomeFragment"
+    tools:layout="@layout/home" />
 </navigation>
